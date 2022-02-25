@@ -26,13 +26,12 @@ jobs:
           echo "repository=$REPO" > /etc/xbps.d/repo.conf
 
       - name: Install dependencies
-        run: xbps-install --yes -S gcc bash liblz4 lzo kmod e2fsprogs
+        run: xbps-install --yes -S git gcc bash liblz4 lzo kmod e2fsprogs
 
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Get dotfiles
-        run: git clone --depth 1 https://github.com/notchtc/dotfiles ./includedir/etc/skel/.dotfiles
+        with:
+          submodules: 'recursive'
 
       - name: Generate ISO
         run: |
