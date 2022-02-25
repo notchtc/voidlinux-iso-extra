@@ -1,3 +1,0 @@
-[submodule "includedir/etc/skel/.dotfiles"]
-	path = includedir/etc/skel/.dotfiles
-	url = https://github.com/notchtc/dotfiles.git

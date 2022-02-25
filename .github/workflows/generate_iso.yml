@@ -15,6 +15,7 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
+
       - name: Set repository
         run: |
           REPO='https://mirrors.dotsrc.org/voidlinux/current'
@@ -23,16 +24,21 @@ jobs:
           rm -fr /etc/xbps.d
           mkdir -p -m 755 /etc/xbps.d
           echo "repository=$REPO" > /etc/xbps.d/repo.conf
+
       - name: Install dependencies
         run: xbps-install --yes -S gcc bash liblz4 lzo kmod e2fsprogs
+
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          submodules: "true"
+
+      - name: Get dotfiles
+        run: git clone --depth 1 https://github.com/notchtc/dotfiles ./includedir/etc/skel/.dotfiles
+
       - name: Generate ISO
         run: |
           chmod +x ./gen.sh
           ./gen.sh
+
       - name: Upload ISO
         uses: actions/upload-artifact@v2
         with:
