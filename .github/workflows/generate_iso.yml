@@ -28,7 +28,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          submodules: "recursive"
+          submodules: "true"
       - name: Generate ISO
         run: |
           chmod +x ./gen.sh
